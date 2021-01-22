@@ -1,95 +1,143 @@
+//PROBLEM NO. 01
 function kilometerToMeter(kilometer)
 {
-    console.log(typeof(kilometer));
-    if(kilometer<0)
+    var inputType=typeof(kilometer);
+    inputType=""+inputType;
+
+    if(kilometer<0 || inputType!="number")
     {
-        console.log("\nSir,your inputed kilometer value is invalid, please try again.Thank you.\n");
+        return"\nError: kilometer value is negative or not in number form.\n";
     }
     else
     {
         var meter=kilometer*1000;
-        console.log("In meter of inputed kilometer value is: ",meter,"meter");
+        //return meter value
         return meter;
     }
 }
-var m=-10;
-kilometerToMeter(m);
 
+
+//PROBLEM NO. 02
 function budgetCalculator(numberOf_watch, numberOf_mobile, numberOf_laptop)
 {
-    // static priceOfEach_watch=50;
-    // static priceOfEach_mobile=100;
-    // static priceOfEach_laptop=500;
+    var inputTypeFor_watch  = typeof(numberOf_watch);
+    var inputTypeFor_mobile = typeof(numberOf_mobile);
+    var inputTypeFor_laptop = typeof(numberOf_laptop);
 
+    inputTypeFor_watch  = "" + inputTypeFor_watch;
+    inputTypeFor_mobile = "" + inputTypeFor_mobile;
+    inputTypeFor_laptop = "" + inputTypeFor_laptop;
+
+     //checking whether the number of watch or mobile or laptop is negative or not in number.
+    if(numberOf_watch<0 || numberOf_mobile<0 || numberOf_laptop<0)
+    {
+        return "\nError: Number of watch or mobile or laptop is negative.\n";
+    }
+    else if(inputTypeFor_watch!="number" || inputTypeFor_mobile!="number" || inputTypeFor_laptop!="number")
+    {
+        return "\nError: Number of watch or mobile or laptop is not in number.\n";
+    }
+
+    //priceOfEach_watch=50, priceOfEach_mobile=100, priceOfEach_laptop=500;
     var budgetFor_watch  = numberOf_watch*50;
     var budgetFor_mobile = numberOf_mobile*100;
     var budgetFor_laptop = numberOf_laptop*500;
 
-    // budgetFor_watch%50==0 checking whether the number of watch is fraction or not.
-    // budgetFor_watch>=0    checking whether the number of watch is negative or not.
+    //checking whether the number of watch is fraction or not.
     // and doing the same thing for mobile and laptop.
-
-    if((budgetFor_watch%50==0 && budgetFor_watch>=0) && (budgetFor_mobile%100==0 && budgetFor_mobile>=0) && (budgetFor_laptop%500==0 && budgetFor_laptop>=0 ))
+    if(budgetFor_watch%50==0 && budgetFor_mobile%100==0 && budgetFor_laptop%500==0)
     {
         var totalBudget=budgetFor_watch + budgetFor_mobile + budgetFor_laptop;
-         console.log(totalBudget);
+        //return total budget
         return totalBudget;
     }
     else
     {
-        console.log("\nSir,your inputed value(s) is invalid, please try again.Thank you.\n");
+        return "\nError: Number of watch or mobile or laptop is in fraction.\n";
     }
-    
 } 
 
-budgetCalculator(1,1,1);
 
-
+//PROBLEM NO. 03
 function hotelCost(numberOf_day)
 {
+    //using floor function to make fraction value in integer
+    var floorValueOf_day=Math.floor(numberOf_day);
+
+    var inputTypeFor_day = typeof(numberOf_day);
+    inputTypeFor_day = "" + inputTypeFor_day;
     
-    var quotient=parseInt(numberOf_day/10);
-    var remainder=numberOf_day%10;
-
-    // console.log(quotient," ",remainder);
-    // if(numberOf_day<0 || remainder)
-
+    //error case checking 
+    if(numberOf_day<0 || inputTypeFor_day!="number" || floorValueOf_day!=numberOf_day)
+    {
+        return "\nError: Number of day is negative or in fraction or not in number form.\n"
+    }
+    
+    var quotient= parseInt(numberOf_day/10);
+    var remainder = numberOf_day%10;
+    var totalRent=0;
+    
+    //calculating total rent
     if(quotient==0)
     {
-        var totalRent=remainder*100;
+        totalRent = remainder*100;
     }
     else if(quotient==1)
     {
-        var totalRent=10*100 + remainder*80;
+        totalRent = 10*100 + remainder*80;
     }
     else if(quotient==2)
     {
-        var totalRent=10*100 + 10*80 +remainder*50;
+        totalRent = 10*100 + 10*80 +remainder*50;
     }
     else
     {
-        var totalRent=10*100 + 10*80 + ((numberOf_day-20)*50);
+        totalRent = 10*100 + 10*80 + ((numberOf_day-20)*50);
     }
+    
+    //return total rent
     return totalRent;
 }
-console.log(hotelCost(40));
 
-function megaFriend(arrayOf_friends)
+
+//PROBLEM NO. 04
+function megaFriend(friendList)
 {
     var maxLength=0;
     var bigFriend="";
-    for(var i=0;i<arrayOf_friends.length;i++)
-    {
-        if(arrayOf_friends[i].length>maxLength)
-        {
-            maxLength = arrayOf_friends[i].length;
-            bigFriend = arrayOf_friends[i];
-        }
-        // console.log(maxLength," ",bigFriend);
-    }
-    // console.log(maxLength," ",bigFriend);
-    return bigFriend;
-}
+    var arrayOf_Friend=[];
 
-var arr=["akash","ratul","sonar","quazi","toaha","rahman","fahim","mehedy"];
-console.log(megaFriend(arr));
+    //removing white-space from each name.
+    for(var i=0;i<friendList.length;i++)
+    {
+        var eachFriend=friendList[i];
+        var temp="";
+        for(var j=0;j<friendList[i].length;j++)
+        { 
+            //checking name only contain alphabates
+            if((eachFriend[j]>="a" && eachFriend[j]<="z") || (eachFriend[j]>="A" && eachFriend[j]<="Z"))
+            {
+                temp=temp+eachFriend[j];
+            }
+        }
+       arrayOf_Friend.push(temp);
+    }
+
+    //finding mega friend
+    for(var i=0;i<arrayOf_Friend.length;i++)
+    {
+         if(arrayOf_Friend[i].length>maxLength)
+         {
+             maxLength =arrayOf_Friend[i].length;
+             bigFriend = arrayOf_Friend[i];
+         }
+     }
+
+     //error massage
+     if(friendList.length==0 || maxLength==0)
+     {
+        return "\nError: friendList array is empty or name is in alphanumeric.\n"
+     }
+     //return desired mega friend
+     return bigFriend;
+}
